@@ -2,18 +2,20 @@ import { Navigate, Outlet, Route, Routes as Switch } from 'react-router-dom'
 
 import { useAuth } from 'modules/auth/context'
 
-import { Action, Auth } from 'pages'
+import { Action, Auth, Home } from 'pages'
+import Game from 'pages/home/hero'
 
 const Routes = () => {
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, user } = useAuth()
+
 
   return (
     <Switch>
-      {/* <Route path="" element={isAuthenticated ? <Outlet /> : <Navigate to="/auth" />}>
-        <Route index element={<Home />}
+      <Route path="" element={isAuthenticated ? <Outlet /> : <Navigate to="/auth" />}>
+        <Route index element={<Home />} />
         <Route path="game" element={user ? <Game /> : <Navigate to="/" />} />
         <Route path="*" element={<Navigate to="/" />} />
-      </Route> */}
+      </Route>
 
       <Route path="auth" element={isAuthenticated ? <Navigate to="/" /> : <Outlet />}>
         <Route path="login" element={<Auth.Login />} />
@@ -24,7 +26,7 @@ const Routes = () => {
       </Route>
 
       <Route path="action" element={<Action />} />
-      <Route path="" element={<Navigate to="/auth/login" />} />
+      <Route path="*" element={<Navigate to="/" />} />
     </Switch>
   )
 }
