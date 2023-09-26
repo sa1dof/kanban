@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Anchor, Button, Container, Divider, Group, Paper, PasswordInput, Stack, Text, TextInput } from '@mantine/core'
+import { Anchor, Button, Container, Group, Paper, PasswordInput, Stack, Text, TextInput } from '@mantine/core'
 import { useForm, yupResolver } from '@mantine/form'
 import { notifications } from '@mantine/notifications'
 import { AuthErrorCodes } from 'firebase/auth'
@@ -10,8 +10,6 @@ import * as yup from 'yup'
 import { Service } from 'modules/auth'
 import { useAuth } from 'modules/auth/context'
 import { IForm } from 'modules/auth/types'
-
-import { GoogleButton } from 'components'
 
 const schema = yup.object({
   name: yup.string().min(5).label('Name').required(),
@@ -51,14 +49,6 @@ const Register = () => {
         <Text size="lg" weight={500} sx={{ textAlign: 'center' }}>
           Welcome to Chess Game
         </Text>
-
-        <Group grow mb="md" mt="md">
-          <GoogleButton radius="xl" onClick={Service.signInWithGoogle}>
-            Google
-          </GoogleButton>
-        </Group>
-
-        <Divider label="Or continue with email" labelPosition="center" my="lg" />
 
         <form onSubmit={form.onSubmit(onSubmit)}>
           <Stack>

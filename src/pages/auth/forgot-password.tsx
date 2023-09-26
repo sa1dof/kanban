@@ -13,6 +13,7 @@ const schema = yup.object({ email: yup.string().email().label('Email').required(
 const ForgotPassword = () => {
   const navigate = useNavigate()
   const [loading, setLoading] = React.useState(false)
+
   const form = useForm<IForm.ForgotPassword>({
     initialValues: { email: '' },
     validate: yupResolver(schema)

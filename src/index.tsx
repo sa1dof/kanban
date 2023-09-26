@@ -1,22 +1,20 @@
 import { BrowserRouter } from 'react-router-dom'
-import { MantineProvider } from '@mantine/core'
 import { Notifications } from '@mantine/notifications'
 import ReactDOM from 'react-dom/client'
-import Routes from 'routes'
+import Routes from 'routes/routes'
 
 import * as Containers from 'containers'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
+import './assets/styles/main.scss'
+import './assets/styles/fonts.scss'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
   <BrowserRouter>
     <Containers.Auth>
-      <MantineProvider withNormalizeCSS>
-        <Routes />
-        <Notifications position="top-right" />
-      </MantineProvider>
+      <Routes />
+      <Notifications position="top-right" />
     </Containers.Auth>
   </BrowserRouter>
 )

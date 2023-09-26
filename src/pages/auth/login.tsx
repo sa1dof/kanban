@@ -1,15 +1,12 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Anchor, Button, Container, Divider, Group, Paper, PasswordInput, Stack, Text, TextInput } from '@mantine/core'
+import { Anchor, Button, Container, Group, Paper, PasswordInput, Stack, Text, TextInput } from '@mantine/core'
 import { useForm, yupResolver } from '@mantine/form'
 import { notifications } from '@mantine/notifications'
 import * as yup from 'yup'
 
 import { Service } from 'modules/auth'
-import { signInWithGoogle } from 'modules/auth/service'
 import { IForm } from 'modules/auth/types'
-
-import { GoogleButton } from 'components'
 
 const schema = yup.object({
   email: yup.string().email().label('Email').required(),
@@ -39,21 +36,14 @@ const Login = () => {
     <Container size={420} my={40}>
       <Paper radius="md" p="xl" withBorder>
         <Text size="lg" weight={500} sx={{ textAlign: 'center' }}>
-          Welcome to Chess Game
+          Welcome to kanban
         </Text>
 
-        <Group grow mb="md" mt="md">
-          <GoogleButton radius="xl" onClick={signInWithGoogle}>
-            Google
-          </GoogleButton>
-        </Group>
-
-        <Divider label="Or continue with email" labelPosition="center" my="lg" />
         <form onSubmit={form.onSubmit(onSubmit)}>
           <Stack>
             <TextInput label="Email" placeholder="Your email address" radius="md" {...form.getInputProps('email')} />
             <PasswordInput label="Password" placeholder="Your password" radius="md" {...form.getInputProps('password')} />
-            <Anchor align="left"  onClick={() => navigate('/auth/forgot-password')} >
+            <Anchor align="left" onClick={() => navigate('/auth/forgot-password')}>
               Forgot Password
             </Anchor>
           </Stack>

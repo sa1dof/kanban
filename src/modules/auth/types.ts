@@ -5,6 +5,7 @@ export namespace IEntity {
     email: string
   }
 }
+
 export namespace IForm {
   export interface Login {
     email: string

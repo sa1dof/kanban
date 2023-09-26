@@ -1,0 +1,94 @@
+.navbar {
+ width: calc(100% - 300px);
+ margin-left: 300px;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ padding: 0 24px;
+ height: 80px;
+ user-select: none;
+ background-color: #fff;
+ color: #000112;
+ border-bottom: 1px solid #e4ebfa;
+ font-family: var(--font-gilroy-bold), sans-serif;
+ transition: all 0.3s;
+
+ .title {
+   font-weight: 700;
+   font-size: 24px;
+ }
+
+ .nav {
+   display: flex;
+   align-items: center;
+   gap: 20px;
+
+   .button,
+   .miniButton {
+     padding: 12px 20px;
+     border-radius: 24px;
+     color: #fff;
+     font-weight: 600;
+     background: #635fc7;
+     cursor: pointer;
+     transition: all 0.1s;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     gap: 10px;
+     border: none;
+
+     i {
+       color: #fff;
+     }
+
+     &:active {
+       transform: scale(0.98);
+     }
+   }
+
+   .miniButton {
+     display: none;
+   }
+
+   i {
+     font-size: 22px;
+     color: #828fa3;
+     cursor: pointer;
+   }
+ }
+
+ &.hideSideBar {
+   width: 100%;
+   margin-left: 0;
+ }
+
+ &.dark {
+   background-color: #2b2c37;
+   color: #fff;
+   border-bottom: 1px solid #3e3f4e;
+ }
+}
+
+@media (max-width: 500px) {
+ .navbar {
+   height: 60px;
+   padding: 0 20px;
+
+   .title {
+     font-size: 18px;
+   }
+
+   .nav {
+     .button {
+       display: none;
+     }
+
+     .miniButton {
+       font-size: 25px;
+       display: flex;
+       padding: 8px 15px;
+     }
+   }
+ }
+}
