@@ -1,3 +1,4 @@
+
 import { Navigate, Outlet, Route, Routes as Switch } from 'react-router-dom'
 import { ColorScheme, ColorSchemeProvider, MantineProvider } from '@mantine/core'
 import { useLocalStorage } from '@mantine/hooks'
@@ -8,7 +9,7 @@ import { Action, Auth, Home } from 'pages'
 const Routes = () => {
   // const { isAuthenticated, user } = useAuth()
 
-  const isAuthenticated = true; /// vaqtinchalik 
+  const isAuthenticated = true; /// vaqtinchalik
 
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: 'color-scheme',
