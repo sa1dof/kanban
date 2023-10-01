@@ -4,42 +4,49 @@ import { useLocalStorage } from '@mantine/hooks'
 import { HiOutlineEye } from 'react-icons/hi'
 import { Store } from 'utils'
 
+import { Types } from 'modules/home'
+import { useBoards } from 'modules/home/hooks'
+
 import { Theme as ThemeContext } from 'containers'
 
-import { Hero,Navbar, Sidebar } from './components'
+import { Hero, Navbar, Sidebar } from './components'
 
 import cls from '../../assets/styles/home.module.scss'
 
 const Home = () => {
-  const [isSideBar, setIsSideBar] = useState<boolean>(window.innerWidth < 500)
+  const sidebar = Store.get('isSideBar')
+  const [isSideBar, setIsSideBar] = useState<boolean>(!sidebar)
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({ key: 'color-scheme' })
+  const [board, setBoard] = useState<Types.IEntity.TBoardContext | null>(null)
+  const { boards, isLoading } = useBoards()
+
   const handleSideBar = () => {
     setIsSideBar(!isSideBar)
     Store.set('isSideBar', `${!isSideBar}`)
   }
 
-  useEffect(() => {
-    document.body.classList.add(`${colorScheme === 'dark' ? 'dark' : 'light'}`)
+  const handleBoard = (name: string, id: number) => {
+    const newBoard: Types.IEntity.TBoardContext = { name, id }
 
-    const handleResize = () => {
-      setIsSideBar(window.innerWidth < 500)
-    }
-
-    window.addEventListener('resize', handleResize)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [colorScheme])
+    setBoard(newBoard)
+    Store.set('board', JSON.stringify(newBoard))
+  }
 
   useEffect(() => {
-    setIsSideBar(window.innerWidth < 500)
-  }, [])
+    const storedBoard = Store.get('board')
+
+    if (storedBoard !== null) {
+      setBoard(JSON.parse(storedBoard) as Types.IEntity.TBoardContext)
+    }
+  })
 
   return (
     <ThemeContext.Provider
       value={{
+        boards,
         isSideBar,
-        methods: { handleSideBar }
+        board,
+        methods: { handleSideBar, handleBoard }
       }}
     >
       <div className={`${cls.home} ${colorScheme ? cls.dark : cls.light}`}>
@@ -48,7 +55,12 @@ const Home = () => {
           <Navbar />
           <Hero />
         </div>
-        <div className={`${cls.corner} ${isSideBar ? '' : cls.hide}`} onClick={handleSideBar}>
+        <div
+          className={`${cls.corner} ${isSideBar ? '' : cls.hide}`}
+          onClick={() => {
+            handleSideBar()
+          }}
+        >
           <HiOutlineEye />
         </div>
       </div>

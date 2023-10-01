@@ -10,13 +10,13 @@ import cls from '../../../assets/styles/navbar.module.scss'
 
 const Navbar = () => {
   const { user } = useAuth()
-  const { isSideBar } = Context.Theme.useTheme()
+  const { isSideBar, board } = Context.Theme.useTheme()
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({ key: 'color-scheme' })
   const animationVariant = { initial: { opacity: 0, y: -20 }, animate: { opacity: 1, y: 0 }, transition: { type: 'spring', stiffness: 100 } }
 
   return (
     <div className={`${cls.navbar} ${isSideBar ? cls.hideSideBar : ''} ${colorScheme === 'dark' ? cls.dark : ''}`}>
-      <div className={cls.title}>No Selected Board</div>
+      <div className={cls.title}>{board?.name ? board.name : "No Selected Board"}</div>
       <nav className={cls.nav}>
         <Menu shadow="md" width="max-content" position="bottom-end">
           <Menu.Target>

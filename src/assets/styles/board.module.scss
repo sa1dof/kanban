@@ -1,0 +1,22 @@
+.board {
+ background-color: inherit;
+ border-radius: 0px 100px 100px 0px;
+ padding: 16px 32px;
+ display: flex;
+ align-items: center;
+ gap: 16px;
+ font-family: Plus Jakarta Sans;
+ font-size: 16px;
+ font-style: normal;
+ font-weight: 700;
+ line-height: normal;
+ color: #828fa3;
+ &:hover {
+   background-color: #ffffff;
+   color: #635fc7;
+ }
+}
+.active {
+ background-color: #635fc7;
+ color: #ffffff;
+}
