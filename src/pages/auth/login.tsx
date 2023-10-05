@@ -1,11 +1,14 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Anchor, Button, Container, Group, Paper, PasswordInput, Stack, Text, TextInput } from '@mantine/core'
+import { Anchor, Box, Button, ColorScheme, Divider, Group, Paper, PasswordInput, Stack, Text, TextInput } from '@mantine/core'
 import { useForm, yupResolver } from '@mantine/form'
+import { useLocalStorage } from '@mantine/hooks'
 import { notifications } from '@mantine/notifications'
+import { FcGoogle } from 'react-icons/fc'
 import * as yup from 'yup'
 
 import { Service } from 'modules/auth'
+import { signInWithGoogle } from 'modules/auth/service'
 import { IForm } from 'modules/auth/types'
 
 const schema = yup.object({
@@ -16,6 +19,7 @@ const schema = yup.object({
 const Login = () => {
   const navigate = useNavigate()
   const [loading, setLoading] = React.useState(false)
+  const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({ key: 'color-scheme' })
   const form = useForm<IForm.Login>({
     initialValues: { email: '', password: '' },
     validate: yupResolver(schema)
@@ -33,12 +37,22 @@ const Login = () => {
   }
 
   return (
-    <Container size={420} my={40}>
-      <Paper radius="md" p="xl" withBorder>
+    <Box
+      w="100%"
+      h="100vh"
+      display="flex"
+      sx={{ alignItems: 'center', justifyContent: 'center' }}
+      bg={colorScheme === 'dark' ? '#2b2c37' : '#FFFFFF'}
+    >
+      <Paper radius="md" p={40} withBorder>
         <Text size="lg" weight={500} sx={{ textAlign: 'center' }}>
           Welcome to kanban
         </Text>
 
+        <Group grow mb="md" mt="md">
+          <Button leftIcon={<FcGoogle />} radius="xl" variant="default" color="gray" onClick={signInWithGoogle} children="Sign in with Google" />
+        </Group>
+        <Divider label="Or continue with email" labelPosition="center" my="lg" />
         <form onSubmit={form.onSubmit(onSubmit)}>
           <Stack>
             <TextInput label="Email" placeholder="Your email address" radius="md" {...form.getInputProps('email')} />
@@ -58,7 +72,7 @@ const Login = () => {
           </Group>
         </form>
       </Paper>
-    </Container>
+    </Box>
   )
 }
 

@@ -12,8 +12,12 @@ export namespace IEntity {
   export interface Column {
     id: number
     name: string
-    tasks: []
+    boardId: number
   }
+  export interface Columns {
+    columns: Column[]
+  }
+
   export interface Board {
     id: number
     name: string
@@ -27,9 +31,9 @@ export namespace IEntity {
 
 export namespace IContext {
   export interface Context {
-    boards: IEntity.Boards;
-    isSideBar: boolean;
-    board: IEntity.TBoardContext | null;
+    boards: IEntity.Boards
+    isSideBar: boolean
+    board: IEntity.TBoardContext | null
     methods: {
       handleSideBar: () => void
       handleBoard: (name: string, id: number) => void
@@ -47,7 +51,27 @@ export namespace IApi {
       export interface Request {
         boardID: number | null
       }
-      export type Response = IEntity.Board
+      export interface Response {
+        data: {
+          boardDetail: {
+            id: number
+            name: string
+            columns: IEntity.Column[]
+          }
+        }
+      }
+    }
+  }
+  export namespace Column {
+    export namespace List {
+      export interface Request {}
+      export type Response = IEntity.Columns
+    }
+    export namespace Single {
+      export interface Request {
+        boardID: number | null
+      }
+      export type Response = IEntity.Column
     }
   }
 }
@@ -57,6 +81,19 @@ export namespace IQuery {
     export interface List {
       isLoading: boolean
       boards: IEntity.Boards
+    }
+    export interface Single {
+      boardDetail: {
+        id: number
+        name: string
+        columns: IEntity.Column[]
+      }
+    }
+  }
+  export namespace Column {
+    export interface List {
+      isLoading: boolean
+      columns: IEntity.Columns
     }
   }
 }
