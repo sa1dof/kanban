@@ -3,13 +3,13 @@ import { Navigate, Outlet, Route, Routes as Switch } from 'react-router-dom'
 import { ColorScheme, ColorSchemeProvider, MantineProvider } from '@mantine/core'
 import { useLocalStorage } from '@mantine/hooks'
 
-// import { useAuth } from 'modules/auth/context'
+import { useAuth } from 'modules/auth/context'
+
 import { Action, Auth, Home } from 'pages'
 
 const Routes = () => {
-  // const { isAuthenticated, user } = useAuth()
+  const { isAuthenticated, user } = useAuth()
 
-  const isAuthenticated = true; /// vaqtinchalik
 
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: 'color-scheme',
@@ -31,8 +31,8 @@ const Routes = () => {
           <Route path="auth" element={isAuthenticated ? <Navigate to="/" /> : <Outlet />}>
             <Route path="login" element={<Auth.Login />} />
             <Route path="register" element={<Auth.Register />} />
-            {/* <Route path="forgot-password" element={<Auth.ForgotPassword />} /> */}
-            {/* <Route path="reset-password" element={<Auth.ResetPassword />} /> */}
+            <Route path="forgot-password" element={<Auth.ForgotPassword />} />
+            <Route path="reset-password" element={<Auth.ResetPassword />} />
             <Route path="*" index element={<Navigate to="/auth/login" />} />
           </Route>
 

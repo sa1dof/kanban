@@ -32,16 +32,15 @@ const Sidebar = () => {
           {colorScheme === 'dark' ? <img src={lightLogo} alt="" /> : <img src={darkLogo} alt="kanban-logo" />}
         </Link>
       </motion.div>
-
       <motion.div className={cls.boards}>
-        <div className={cls.boardsCount}>ALL BOARDS (0)</div>
-        <ScrollArea h="100%" offsetScrollbars type='never'>
-        {boards?.data.board?.map(board => (
-          <Board key={board.id} name={board.name} id={board.id}/>
-        ))}
+        <div className={cls.boardsCount}>ALL BOARDS ({boards.data.board.length})</div>
+        <ScrollArea h="100%" offsetScrollbars type="never">
+          {boards?.data.board?.map(board => (
+            <Board key={board.id} name={board.name} id={board.id} />
+          ))}
+          <Board name="+ Create New Board" id={0} />
         </ScrollArea>
       </motion.div>
-
       <motion.div className={cls.footer} {...animationVariant}>
         <div className={cls.panel}>
           <BiSolidSun className={cls.icon} />
